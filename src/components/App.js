@@ -11,6 +11,7 @@ import {
   QUERY_REMOVE_BUTTON,
   UNTITLED,
   CLASS_HIDDEN,
+  CLASS_HOVER_AREA,
 } from "../constants/index.js";
 import { initRouter, push } from "../router.js";
 import SidebarContainer from "./Sidebar/SidebarContainer.js";
@@ -180,6 +181,7 @@ export default function App({
       }
     },
     onDocumentClick: async (e) => {
+      console.log("clicked!");
       let { target } = e;
       if (target.classList.contains(CLASS_HOVER_AREA)) {
         target = target.querySelector(".title");

@@ -29,9 +29,8 @@ export default function DocumentsList({
     return documents
       .map(
         (document) => `
-        <li class="root-document" data-id=${
-          document.id
-        }><div class="hover-area"><div role="button" class="spread-button ${
+        <li class="root-document" data-id=${document.id}>
+        <div class="hover-area"><div role="button" class="spread-button ${
           this.state.openDocumentsList.includes(document.id) ? "open" : ""
         }">${
           this.state.openDocumentsList.includes(document.id)
