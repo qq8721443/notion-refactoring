@@ -1,0 +1,226 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+}
+
+ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+li {
+  width: 100%;
+  font-size: 14px;
+  color: rgb(55, 53, 47);
+}
+
+button {
+  width: 20px;
+  height: 20px;
+}
+
+.sidebar-container {
+  position: relative;
+  width: 240px;
+  height: 100vh;
+  background-color: rgb(247, 246, 243);
+  color: rgba(25, 23, 17, 0.6);
+}
+
+ul > li.root-document {
+  padding: 0;
+}
+
+ul.notion-sidebar {
+  position: relative;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  padding: 2px 14px;
+  color: rgb(55, 53, 47);
+  font-weight: 500;
+}
+
+.sidebar-title:hover {
+  background: rgba(55, 53, 47, 0.08);
+}
+
+.spread-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+}
+
+.spread-button:hover {
+  background: rgba(55, 53, 47, 0.08);
+}
+
+.hover-area {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 27px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hover-area:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+}
+
+div.title {
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0px;
+}
+
+.hidden {
+  display: none;
+}
+
+.selected {
+  font-weight: 600;
+}
+
+.child-none {
+  margin-left: 5px;
+  font-size: 14px;
+  min-height: 27px;
+  line-height: 27px;
+}
+
+.editor-container {
+  position: relative;
+  width: calc(100vw - 240px);
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editor-container [contenteditable]:empty::before {
+  content: attr(placeholder);
+  color: #aaa;
+}
+
+.editor-container [contenteditable] {
+  outline: none;
+  border: none;
+  cursor: text;
+}
+
+.editor {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.editor > textarea {
+  all: unset;
+  width: 900px;
+  height: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.new-button {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid rgba(55, 53, 47, 0.08);
+  padding: 0 10px;
+}
+
+.new-button:hover {
+  background: rgba(55, 53, 47, 0.08);
+}
+
+.rich-editor-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.rich-editor {
+  width: 900px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.rich-editor-title-container {
+  display: flex;
+  justify-content: center;
+}
+
+.rich-editor-title-container-2 {
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.rich-editor-title {
+  width: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  padding-top: 100px;
+}
+
+.indicator {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  color: rgb(55, 53, 47);
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  max-width: 200px;
+  height: 24px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.breadcrumb-item:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+}
+
+.breadcrumb-item-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
