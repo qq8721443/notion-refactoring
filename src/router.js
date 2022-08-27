@@ -10,7 +10,6 @@ export const initRouter = (onRoute) => {
     }
   });
   window.addEventListener("popstate", (e) => {
-    console.log("pop");
     onRoute();
   });
 };
