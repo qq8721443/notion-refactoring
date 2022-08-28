@@ -4,7 +4,7 @@ import {
   setNewDocument,
   modifyDocument,
   removeDocument,
-} from "../api/index.js";
+} from "./api/index.js";
 import {
   QUERY_HOVER_AREA,
   QUERY_ADD_BUTTON,
@@ -12,11 +12,12 @@ import {
   UNTITLED,
   CLASS_HIDDEN,
   CLASS_HOVER_AREA,
-} from "../constants/index.js";
-import { initRouter, push } from "../router.js";
-import SidebarContainer from "./Sidebar/SidebarContainer.js";
-import EditorContainer from "./Editor/EditorContainer.js";
-import SavingIndicator from "./SavingIndicator.js";
+} from "./constants/index.js";
+import { initRouter, push } from "./router.js";
+import Layout from "./components/Layout.js";
+import SidebarContainer from "./components/Sidebar/SidebarContainer.js";
+import EditorContainer from "./components/Editor/EditorContainer.js";
+import SavingIndicator from "./components/SavingIndicator.js";
 
 export default function App({
   $target,
@@ -36,7 +37,8 @@ export default function App({
     this.state = nextState;
 
     sidebarContainer.setState({
-      ...this.state,
+      documents: this.state.documents,
+      openDocumentsList: this.state.openDocumentsList,
     });
 
     editorContainer.setState({
@@ -50,7 +52,10 @@ export default function App({
 
   const sidebarContainer = new SidebarContainer({
     $target,
-    initialState: this.state,
+    initialState: {
+      documents: this.state.documents,
+      openDocumentsList: this.state.openDocumentsList,
+    },
     onClickSpreadButton: (e) => {
       const { target } = e;
       const closestLi = target.closest("li");
@@ -121,27 +126,27 @@ export default function App({
         if (childUl.classList.contains("child")) {
           const $newLi = document.createElement("li");
           $newLi.innerHTML = `
-              <li class="root-document" data-id=${newDocument.id}>
-                <div class="hover-area">
-                  <button class="spread-button">></button>
-                    untitled
-                  <button class="add-button hidden">+</button>
-                </div>
-                <ul class='child-none hidden'>하위 페이지가 없습니다.</ul>
-              </li>`;
+            <li class="root-document" data-id=${newDocument.id}>
+              <div class="hover-area">
+                <button class="spread-button">></button>
+                  untitled
+                <button class="add-button hidden">+</button>
+              </div>
+              <ul class='child-none hidden'>하위 페이지가 없습니다.</ul>
+            </li>`;
           childUl.appendChild($newLi);
         } else {
           childUl.classList.remove("child-none");
           childUl.classList.add("child");
           childUl.innerHTML = `
-              <li class="root-document" data-id=${newDocument.id}>
-                <div class="hover-area">
-                  <button class="spread-button">></button>
-                    untitled
-                  <button class="add-button hidden">+</button>
-                </div>
-                <ul class='child-none hidden'>하위 페이지가 없습니다.</ul>
-              </li>`;
+            <li class="root-document" data-id=${newDocument.id}>
+              <div class="hover-area">
+                <button class="spread-button">></button>
+                  untitled
+                <button class="add-button hidden">+</button>
+              </div>
+              <ul class='child-none hidden'>하위 페이지가 없습니다.</ul>
+            </li>`;
         }
         const documents = await getDocuments();
         this.setState({
