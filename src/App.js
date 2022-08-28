@@ -48,6 +48,10 @@ export default function App({
     homePage.setState({
       ...this.state,
     });
+
+    savingIndicator.setState({
+      ...this.state,
+    });
   };
 
   const layout = new Layout({
@@ -208,13 +212,6 @@ export default function App({
       }
     },
     onTitleClick: () => {
-      this.setState({
-        ...this.state,
-        id: "",
-        title: "",
-        content: "",
-        isEditorOpen: false,
-      });
       push("/");
     },
   });
@@ -280,6 +277,9 @@ export default function App({
       this.setState({
         ...this.state,
         documents,
+        id: "",
+        title: "",
+        content: "",
       });
       homePage.init();
     } else if (pathname.indexOf("/documents/") === 0) {
