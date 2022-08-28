@@ -109,7 +109,7 @@ div.title {
   line-height: 27px;
 }
 
-.editor-container {
+.page_content {
   position: relative;
   width: calc(100vw - 240px);
   height: 100vh;
@@ -120,12 +120,12 @@ div.title {
   gap: 10px;
 }
 
-.editor-container [contenteditable]:empty::before {
+.page_content [contenteditable]:empty::before {
   content: attr(placeholder);
   color: #aaa;
 }
 
-.editor-container [contenteditable] {
+.page_content [contenteditable] {
   outline: none;
   border: none;
   cursor: text;

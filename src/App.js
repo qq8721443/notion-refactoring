@@ -15,9 +15,9 @@ import {
 } from "./constants/index.js";
 import { initRouter, push } from "./router.js";
 import Layout from "./components/Layout.js";
-import SidebarContainer from "./components/Sidebar/SidebarContainer.js";
-import EditorContainer from "./components/Editor/EditorContainer.js";
 import SavingIndicator from "./components/SavingIndicator.js";
+import HomePage from "./pages/HomePage.js";
+import EditPage from "./pages/EditPage.js";
 
 export default function App({
   $target,
@@ -36,21 +36,21 @@ export default function App({
   this.setState = (nextState) => {
     this.state = nextState;
 
-    sidebarContainer.setState({
+    layout.setState({
       documents: this.state.documents,
       openDocumentsList: this.state.openDocumentsList,
     });
 
-    editorContainer.setState({
+    editPage.setState({
       ...this.state,
     });
 
-    savingIndicator.setState({
+    homePage.setState({
       ...this.state,
     });
   };
 
-  const sidebarContainer = new SidebarContainer({
+  const layout = new Layout({
     $target,
     initialState: {
       documents: this.state.documents,
@@ -186,7 +186,6 @@ export default function App({
       }
     },
     onDocumentClick: async (e) => {
-      console.log("clicked!");
       let { target } = e;
       if (target.classList.contains(CLASS_HOVER_AREA)) {
         target = target.querySelector(".title");
@@ -220,10 +219,11 @@ export default function App({
     },
   });
 
-  let timer = null;
+  const $pageSection = document.querySelector(".page_content");
 
-  const editorContainer = new EditorContainer({
-    $target,
+  const homePage = new HomePage({ $target: $pageSection });
+  const editPage = new EditPage({
+    $target: $pageSection,
     initialState: this.state,
     onChange: async (e) => {
       const { target } = e;
@@ -270,26 +270,30 @@ export default function App({
     initialState: this.state,
   });
 
+  let timer = null;
+
   this.route = async () => {
     const { pathname } = window.location;
     const documents = await getDocuments();
     if (pathname === "/") {
+      $pageSection.innerHTML = "";
       this.setState({
         ...this.state,
         documents,
-        isEditorOpen: false,
       });
+      homePage.init();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , documentId] = pathname.split("/");
       const document = await getOneDocument(documentId);
+      $pageSection.innerHTML = "";
       this.setState({
         ...this.state,
         documents,
         id: document.id,
         title: document.title,
         content: document.content,
-        isEditorOpen: true,
       });
+      editPage.init();
     }
   };
 

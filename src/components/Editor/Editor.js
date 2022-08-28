@@ -9,11 +9,6 @@ export default function Editor({ $target, initialState, onChange }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    if (this.state.isEditorOpen) {
-      $Editor.classList.remove(CLASS_HIDDEN);
-    } else {
-      $Editor.classList.add(CLASS_HIDDEN);
-    }
     $Editor.querySelector(QUERY_NAME_CONTENT).value = this.state.content;
   };
 

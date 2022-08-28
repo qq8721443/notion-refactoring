@@ -6,17 +6,10 @@ export default function EditorContainer({ $target, initialState, onChange }) {
   const $container = document.createElement("div");
   $container.classList.add("editor-container");
 
-  $target.appendChild($container);
-
   this.state = initialState;
 
   this.setState = (nextState) => {
     this.state = nextState;
-    if (this.state.isEditorOpen) {
-      $container.style.display = "flex";
-    } else {
-      $container.style.display = "none";
-    }
     editor.setState({
       ...this.state,
     });
@@ -26,6 +19,10 @@ export default function EditorContainer({ $target, initialState, onChange }) {
     breadcrumb.setState({
       ...this.state,
     });
+  };
+
+  this.init = () => {
+    $target.appendChild($container);
   };
 
   const breadcrumb = new Breadcrumb({
@@ -44,6 +41,4 @@ export default function EditorContainer({ $target, initialState, onChange }) {
     initialState,
     onChange,
   });
-
-  this.render = () => {};
 }
