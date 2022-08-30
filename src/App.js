@@ -24,7 +24,6 @@ export default function App({
   initialState = {
     documents: [],
     openDocumentsList: [],
-    isEditorOpen: false,
     id: "",
     title: "",
     content: "",
@@ -201,7 +200,6 @@ export default function App({
       push(`/documents/${document.id}`);
       this.setState({
         ...this.state,
-        isEditorOpen: true,
         id: parseInt(selectedId),
         title: document.title,
         content: document.content,
