@@ -191,25 +191,21 @@ export default function App({
     },
     onDocumentClick: async (e) => {
       let { target } = e;
-      if (target.classList.contains(CLASS_HOVER_AREA)) {
-        target = target.querySelector(".title");
-      }
-      if (
-        target.classList.contains(CLASS_HOVER_AREA) ||
-        target.classList.contains("title")
-      ) {
-        const closestLi = target.closest("li");
-        const selectedId = closestLi.dataset.id;
-        const document = await getOneDocument(selectedId);
-        push(`/documents/${document.id}`);
-        this.setState({
-          ...this.state,
-          isEditorOpen: true,
-          id: parseInt(selectedId),
-          title: document.title,
-          content: document.content,
-        });
-      }
+      const closestHoverArea = target.closest(`.${CLASS_HOVER_AREA}`);
+      if (!closestHoverArea) return;
+      if (target.closest(".spread-button")) return;
+      if (target.classList.contains("button")) return;
+      const closestLi = closestHoverArea.closest("li");
+      const selectedId = closestLi.dataset.id;
+      const document = await getOneDocument(selectedId);
+      push(`/documents/${document.id}`);
+      this.setState({
+        ...this.state,
+        isEditorOpen: true,
+        id: parseInt(selectedId),
+        title: document.title,
+        content: document.content,
+      });
     },
     onTitleClick: () => {
       push("/");
