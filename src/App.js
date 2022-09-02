@@ -9,7 +9,6 @@ import {
   QUERY_HOVER_AREA,
   QUERY_ADD_BUTTON,
   QUERY_REMOVE_BUTTON,
-  UNTITLED,
   CLASS_HIDDEN,
   CLASS_HOVER_AREA,
 } from "./constants/index.js";
@@ -93,7 +92,7 @@ export default function App({
       }
     },
     onClickRootAddButton: async (e) => {
-      const newDocument = await setNewDocument(null, UNTITLED);
+      const newDocument = await setNewDocument(null, "");
       const documents = await getDocuments();
       push(`/documents/${newDocument.id}`);
       this.setState({
@@ -110,7 +109,7 @@ export default function App({
         const closestHoverDiv = target.closest(QUERY_HOVER_AREA);
         const parentId = closestHoverDiv.closest("li").dataset.id;
         const childUl = closestHoverDiv.nextSibling.nextElementSibling;
-        const newDocument = await setNewDocument(parentId, UNTITLED);
+        const newDocument = await setNewDocument(parentId, "");
         // 추가 버튼 눌렀을 때 하위 문서가 자동으로 열려야 함
         // openDocumentsList에 추가하고 hidden 클래스 없애주기
         if (childUl.classList.contains(CLASS_HIDDEN)) {
@@ -130,7 +129,6 @@ export default function App({
             <li class="root-document" data-id=${newDocument.id}>
               <div class="hover-area">
                 <button class="spread-button">></button>
-                  untitled
                 <button class="add-button hidden">+</button>
               </div>
               <ul class='child-none hidden'>하위 페이지가 없습니다.</ul>
@@ -143,7 +141,7 @@ export default function App({
             <li class="root-document" data-id=${newDocument.id}>
               <div class="hover-area">
                 <button class="spread-button">></button>
-                  untitled
+                  
                 <button class="add-button hidden">+</button>
               </div>
               <ul class='child-none hidden'>하위 페이지가 없습니다.</ul>
@@ -239,7 +237,7 @@ export default function App({
         });
         await modifyDocument(
           this.state.id,
-          this.state.title || UNTITLED,
+          this.state.title,
           this.state.content
         );
         const documents = await getDocuments();

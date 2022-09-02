@@ -40,7 +40,13 @@ export default function DocumentsList({
         </div>
         ${DOCUMENT_ICON}
         <div class="title ${this.state.id === document.id ? "selected" : ""}">${
-          this.state.id === document.id ? this.state.title : document.title
+          this.state.id === document.id
+            ? this.state.title === ""
+              ? "Untitled"
+              : this.state.title
+            : document.title === ""
+            ? "Untitled"
+            : document.title
         }</div><button class="button add-button hidden">+</button><button class="button remove-button hidden">-</button></div>
         ${
           document.documents.length > 0
