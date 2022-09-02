@@ -115,6 +115,7 @@ div.title {
   height: 100vh;
   box-sizing: border-box;
   padding: 10px;
+  padding-left: 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;
