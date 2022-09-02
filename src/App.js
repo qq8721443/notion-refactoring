@@ -36,8 +36,7 @@ export default function App({
     this.state = nextState;
 
     layout.setState({
-      documents: this.state.documents,
-      openDocumentsList: this.state.openDocumentsList,
+      ...this.state,
     });
 
     editPage.setState({
@@ -56,8 +55,7 @@ export default function App({
   const layout = new Layout({
     $target,
     initialState: {
-      documents: this.state.documents,
-      openDocumentsList: this.state.openDocumentsList,
+      ...this.state,
     },
     onClickSpreadButton: (e) => {
       const { target } = e;
@@ -222,9 +220,7 @@ export default function App({
       if (name === "title") {
         this.setState({
           ...this.state,
-          title:
-            name === "title" ? target.innerText || UNTITLED : this.state.title,
-          [name]: target.innerText,
+          title: target.innerText,
         });
       }
       if (name === "content") {
