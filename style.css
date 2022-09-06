@@ -41,10 +41,14 @@ button {
   right: 0;
   width: 5px;
   height: 100%;
-  background-color: red;
   z-index: 100;
   cursor: col-resize;
   user-select: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.side:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 ul > li.root-document {
