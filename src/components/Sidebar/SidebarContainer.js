@@ -2,6 +2,7 @@ import DocumentsList from "./DocumentsList.js";
 import NewButton from "./NewButton.js";
 import SidebarTitle from "./SidebarTitle.js";
 import throttle from "../../utils/throttle.js";
+import { getStorage, setStorage } from "../../utils/storage.js";
 
 export default function SidebarContainer({
   $target,
@@ -19,7 +20,6 @@ export default function SidebarContainer({
 
   const $side = document.createElement("div");
   $side.classList.add("side");
-  $side.setAttribute("draggable", true);
   $container.appendChild($side);
 
   $target.appendChild($container);
@@ -58,21 +58,39 @@ export default function SidebarContainer({
 
   this.render = () => {};
 
-  const handleDragStart = (e) => {
-    // e.preventDefault();
-    const img = new Image();
-    img.src =
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1600px-HD_transparent_picture.png?20200606142532";
-    e.dataTransfer.setDragImage(img, 0, 0);
+  const storedWidth = getStorage("sidebar-width");
+  $container.style.width = `${storedWidth}px`;
+
+  let mouseX = 0;
+
+  let width = 0;
+
+  const handleMouseDown = (e) => {
+    mouseX = e.clientX;
+
+    const styles = window.getComputedStyle($container);
+    width = parseInt(styles.width, 10);
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
   };
 
-  const handleDrag = (e) => {
-    console.log($container.getBoundingClientRect().width);
-    $container.style.width = `${
-      $container.getBoundingClientRect().width + e.offsetX
-    }px`;
+  const handleMouseMove = (e) => {
+    const dx = e.clientX - mouseX;
+
+    if (width + dx > window.innerWidth - 940) {
+      $container.style.width = `${window.innerWidth - 940}px`;
+      setStorage("sidebar-width", `${window.innerWidth - 940}`);
+    } else {
+      $container.style.width = `${width + dx}px`;
+      setStorage("sidebar-width", `${width + dx}`);
+    }
   };
 
-  $side.addEventListener("dragstart", handleDragStart);
-  window.addEventListener("drag", throttle(handleDrag));
+  const handleMouseUp = () => {
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+  };
+
+  $side.addEventListener("mousedown", handleMouseDown);
 }

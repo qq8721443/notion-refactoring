@@ -31,7 +31,7 @@ button {
   height: 100vh;
   background-color: rgb(247, 246, 243);
   color: rgba(25, 23, 17, 0.6);
-  transition: width 0.2s ease;
+  transition: width 0.2s ease-out;
 }
 
 .side {
@@ -126,7 +126,6 @@ div.title {
 
 .page_content {
   position: relative;
-  width: calc(100vw - 240px);
   height: 100vh;
   box-sizing: border-box;
   padding: 10px;
