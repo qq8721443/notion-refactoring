@@ -20,5 +20,14 @@ export default function Editor({ $target, initialState, onChange }) {
 
   this.render();
 
+  const handleResize = (e) => {
+    const height = e.target.scrollHeight;
+    e.target.style.height = `${height + 8}px`;
+  };
+
   $Editor.addEventListener("input", onChange);
+
+  const $textarea = $Editor.querySelector("textarea");
+  $textarea.addEventListener("keydown", handleResize);
+  $textarea.addEventListener("keyup", handleResize);
 }
