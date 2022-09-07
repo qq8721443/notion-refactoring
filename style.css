@@ -59,6 +59,8 @@ ul.notion-sidebar {
   position: relative;
   padding: 0;
   width: 100%;
+  height: calc(100vh - 90px);
+  overflow: auto;
 }
 
 .sidebar-title {
