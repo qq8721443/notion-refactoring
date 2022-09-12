@@ -1,6 +1,7 @@
 import Breadcrumb from "./Breadcrumb.js";
 import Editor from "./Editor.js";
 import RichEditorTitle from "./EditorTitle.js";
+import RichEditor from "./RichEditor.js";
 
 export default function EditorContainer({ $target, initialState, onChange }) {
   const $container = document.createElement("div");
@@ -10,9 +11,11 @@ export default function EditorContainer({ $target, initialState, onChange }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    editor.setState({
+
+    richEditor.setState({
       ...this.state,
     });
+
     editorTitle.setState({
       ...this.state,
     });
@@ -22,6 +25,7 @@ export default function EditorContainer({ $target, initialState, onChange }) {
   };
 
   this.init = () => {
+    richEditor.render();
     $target.appendChild($container);
   };
 
@@ -36,9 +40,9 @@ export default function EditorContainer({ $target, initialState, onChange }) {
     onChange,
   });
 
-  const editor = new Editor({
+  const richEditor = new RichEditor({
     $target: $container,
-    initialState,
+    initialState: this.state,
     onChange,
   });
 }

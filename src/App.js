@@ -224,7 +224,7 @@ export default function App({
       if (name === "content") {
         this.setState({
           ...this.state,
-          content: target.value,
+          content: target.innerHTML,
         });
       }
       if (timer !== null) {
